@@ -7,7 +7,7 @@ interface Props {
   id?: string;
   boxStyle?: string;
   count?: number;
-  status?: Status;
+  status?: Status | string;
 }
 
 const Accordion = ({

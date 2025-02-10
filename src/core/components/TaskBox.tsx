@@ -10,30 +10,33 @@ interface Props {
 
 export default function TaskBox({ task = null, onUpdate = () => {} }: Props) {
   const updateStatus = () => {
-    if (task?.status !== 'completed') {
+    if (task?.status !== 'completed' || task !== null) {
       task!.status = Status.COMPLETED;
       onUpdate(task);
-
-      console.log(task);
     }
   };
 
   return (
     <div className="task">
-      <input
-        type="checkbox"
-        checked={task?.status === 'completed'}
-        disabled={task?.status === 'completed'}
-        onChange={updateStatus}
-      />
+      {task !== null && (
+        <input
+          type="checkbox"
+          checked={task?.status === 'completed'}
+          disabled={task?.status === 'completed' || task == null}
+          onChange={updateStatus}
+        />
+      )}
       <Link
         to={`/${task?.id}`}
+        onClick={(e) => {
+          if (task == null) e.preventDefault();
+        }}
         className={cx(
           'task-text',
           task?.status === 'completed' ? 'completed' : ''
         )}
       >
-        {task?.description}
+        {task == null ? 'no tasks' : task?.title}
       </Link>
     </div>
   );

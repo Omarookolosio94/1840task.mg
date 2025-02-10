@@ -63,11 +63,21 @@ export const isObjectEmpty = (obj: any) => {
 const TASKS_STORAGE_KEY = '1840tasks';
 
 export const getStoredTasks = (): Task[] => {
-  const tasks = localStorage.getItem(TASKS_STORAGE_KEY);
-  return tasks ? JSON.parse(tasks) : [];
+  const data = localStorage.getItem(TASKS_STORAGE_KEY);
+  if (!data) return [];
+  return JSON.parse(data).sort(
+    (a: any, b: any) =>
+      new Date(b.dateAdded).getTime() - new Date(a.dateAdded).getTime()
+  );
 };
 
-// Function to save tasks to local storage
 export const saveTasks = (tasks: Task[]) => {
   localStorage.setItem(TASKS_STORAGE_KEY, JSON.stringify(tasks));
+};
+export const generateRandomId = (length: number = 5): string => {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  return Array.from(
+    { length },
+    () => chars[Math.floor(Math.random() * chars.length)]
+  ).join('');
 };

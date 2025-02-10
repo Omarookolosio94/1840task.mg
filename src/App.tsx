@@ -4,10 +4,11 @@ import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import Navbar from './core/components/Navbar';
 import AddTask from './pages/AddTask';
+import { TaskProvider } from './core/taskContext';
 
 function App() {
   return (
-    <>
+    <TaskProvider>
       {/*  
        TODO: Include loader
       
@@ -21,14 +22,14 @@ function App() {
             <Route path="/" element={<Home />}>
               <Route path="/new" element={<AddTask />} />
               <Route path="/:id" element={<SingleTask />} />
-              <Route path="/*" element={<NotFound />} />
+              <Route path="/*" element={<NotFound isChildView />} />
             </Route>
 
-            <Route path="*" element={<NotFound />} />
+            <Route path="*" element={<NotFound isChildView={false} />} />
           </Routes>
         </div>
       </Router>
-    </>
+    </TaskProvider>
   );
 }
 

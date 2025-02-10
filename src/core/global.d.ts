@@ -10,5 +10,8 @@ declare global {
     dueDate: string;
     priority: Priority | string;
     status: Status | string;
+    dateAdded: string;
   }
+
+  type DataListItem = { value: string | number; name: string };
 }
